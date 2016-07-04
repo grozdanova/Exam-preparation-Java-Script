@@ -1,0 +1,40 @@
+function solve(args) {
+    let k = +args[0].split(' ')[1];
+    let s = args[1].split(' ').map(Number);
+function transform(num, left, rigth) {   //suzdavame si funkciq za transformaciite, sprqmo yslovieto
+    if (num === 0) {
+        return Math.abs(left - rigth);
+    }
+    else if(num % 2 === 0){
+        return Math.max(left, rigth);
+    }
+    else if(num === 1){
+        return left + rigth;
+    }
+    else {
+        return Math.min(left, rigth);
+    }
+}
+    for (var i = 0; i < k; i+=1) {
+        let next =[]; //suzdavame si prazen masiv
+        for (var j = 0; j < s.length; j+=1) {
+  let value; //suzdavame si oshte edna promenliva, za da moje sled 1ta tr-iq da rabotim s novite chisla, a ne vseki pu s edni i sushti
+            if(j === 0){ //ako sme na indeks 0, da vzemem posledniq i tozi na indeks 1
+                value = transform(s[j], s[s.length - 1], s[1]);
+            } // ako sme na posledniq indeks da vzemem predniq el. i tozi na indeks 0
+            else if(j === (s.length - 1)){
+                value = transform(s[j], s[j - 1], s[0]);
+            }
+            else{ //v normalnite sluchai da vzima tezi na predniq i sledvasht indeks
+                value = transform(s[j], s[j-1], s[j + 1]);
+            } 
+            next.push(value); //puhame novite stoinosti v prazniq masiv
+        }
+        s = next; //na sledvashtata iteraciq da rabotim s novite chisla    
+    }
+    let sum = 0;
+    for(let n of s){
+        sum += n;
+    } 
+    console.log(sum);
+}

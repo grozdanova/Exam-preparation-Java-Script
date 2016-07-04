@@ -1,0 +1,22 @@
+function solve(params) {
+    var N = +(params[0]),
+        K = +(params[1]),
+        numbersAsString = params[2].split(' ').map(Number), //suzdavame masiv ot chisla
+        result = [];
+
+function calcMinMac(num) {
+    var min = num[0],
+    max = num[0];
+    for (var i = 1; i < num.length; i+=1) {
+        min = Math.min(min, num[i]);
+        max = Math.max(max, num[i]);
+    }
+    return min + max;
+}
+
+for (var i = 0; i < N - K + 1; i+=1) {
+    result.push(calcMinMac(numbersAsString.slice(i, i + K))); // vzimame samo chast ot masiva i go puhame v noviq
+    
+}
+    console.log(result.join(','));
+}

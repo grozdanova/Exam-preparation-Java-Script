@@ -1,0 +1,49 @@
+function solve(args) {
+    let heights = args[0].split(' ').map(Number);
+    let bestCout = -1;
+    let count = 0;
+    let current;
+    current = heights[0];
+    heights.push(-1);
+    let isDescending = true;
+
+    for (let i = 1; i < heights.length; i +=1) {
+        let height = heights[i];
+        
+        if (isDescending) {
+              if (current < height) {
+                isDescending = !isDescending;
+            }
+        } else{ 
+            if (current > height) {
+            bestCout = Math.max(bestCout, count);
+                count = 0;
+            isDescending = !isDescending;
+            }
+        }
+        current = height;
+        count += 1;
+    }
+    console.log(bestCout);
+}
+//variant 2
+function solve(args) {
+    let heights = args[0].split(' ').map(Number);
+    let peaks = [0];
+
+    for (var i = 1; i < heights.length; i+= 1) {
+        if (isGreaterThanNeighbor(i, heights)) {
+            peaks.push(i);
+        }      
+    }
+    peaks.push(heights.length - 1);
+    let bestCout = -1;
+    for (var i = 1; i < peaks.length; i+=1) {
+        bestCout = Math.max(bestCout, peaks[i] - peaks[i - 1]);       
+    }
+    console.log(bestCout);
+    
+    function isGreaterThanNeighbor(index, arr) {
+        return arr[index - 1] < arr[index] && arr[index + 1] < arr[index];
+    }
+}

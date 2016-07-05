@@ -1,0 +1,33 @@
+function solve(args) {
+    var valley = args[0].split(',').map(Number),
+    pattern,
+    results=[],
+    maxCoins;
+
+for (var i = 2; i < args.length; i+=1) {
+   pattern = args[i].split(',').map(Number); 
+    results.push(getCoins(valley, pattern));
+}
+maxCoins = Math.max.apply(null, results); //namirane na maximalna stoinost v masiv
+console.log(maxCoins);
+
+    function isOutside(array, index) {
+        return array[index] === undefined;
+    }
+function getCoins(valley, pattern) {
+    var visited = [], //kude sme bili. Suzdavame si bulev masiv
+    coins = 0,
+    index = 0, //kude se namiram
+    patternIndex = 0; //koi element ot pattern da izpolzvame
+while(!visited[index] && !isOutside(valley, index)){ // do koga produljavame-continue while not visited and is inside the valley
+    coins += valley[index]; //subirame monetite ot tekushtiq index
+    visited[index] = true; //kazvame, che sme doshli na tozi index
+    index += pattern[patternIndex];
+    patternIndex += 1;
+    patternIndex %= pattern.length; //zavurtame go ot na4alo, ako sme stignali kraq my
+    //moje da se zapishe na 1red - patternIndex = (patternIndex + 1) % pattern.length;
+}
+return coins;
+}
+}
+//solve(['1, 3, -6, 7, 4, 1 , 12', '3', '1, 2, -3', '1, 3, -2', '1, -1']);

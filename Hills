@@ -28,15 +28,15 @@ function solve(args) {
 }
 //variant 2
 function solve(args) {
-    let heights = args[0].split(' ').map(Number);
-    let peaks = [0];
+    let heights = args[0].split(' ').map(Number); //vsichki chisla
+    let peaks = [0]; //suzdavame si masiv samo za vurhovete
 
-    for (var i = 1; i < heights.length; i+= 1) {
+    for (var i = 1; i < heights.length; i+= 1) { //zapochvame ot 0 index,zashtoto purviq i posledniq vinagi sa vurhove
         if (isGreaterThanNeighbor(i, heights)) {
             peaks.push(i);
         }      
     }
-    peaks.push(heights.length - 1);
+    peaks.push(heights.length - 1); //taka poluchavame samo indexite
     let bestCout = -1;
     for (var i = 1; i < peaks.length; i+=1) {
         bestCout = Math.max(bestCout, peaks[i] - peaks[i - 1]);       
